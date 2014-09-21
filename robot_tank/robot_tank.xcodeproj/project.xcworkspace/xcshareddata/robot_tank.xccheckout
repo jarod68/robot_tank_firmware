@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>734D083D-76FF-4636-8A85-F85CD837672B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>robot_tank</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FB34DAEA-2B2D-44B0-8E21-41587B093132</key>
+		<string>https://github.com/jarod68/robot_tank_firmware.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>robot_tank/robot_tank.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FB34DAEA-2B2D-44B0-8E21-41587B093132</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jarod68/robot_tank_firmware.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FB34DAEA-2B2D-44B0-8E21-41587B093132</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FB34DAEA-2B2D-44B0-8E21-41587B093132</string>
+			<key>IDESourceControlWCCName</key>
+			<string>robot_tank_firmware</string>
+		</dict>
+	</array>
+</dict>
+</plist>
