@@ -19,7 +19,7 @@ class Tank
     
     
 public:
-    Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort);
+    Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort, uint8_t irReceiverPOrt);
     virtual ~Tank ();
     
     virtual TankState * getCurrentState() const;
@@ -50,6 +50,7 @@ private:
     MeDCMotor * _rightMotor;
     MeDCMotor * _leftMotor;
     MeUltrasonicSensor * _ultraSonicSensor;
+    MeInfraredReceiver * _irReceiver;
     TankState * _currentState;
     uint8_t _turnSpeed;
     uint8_t _lineSpeed;

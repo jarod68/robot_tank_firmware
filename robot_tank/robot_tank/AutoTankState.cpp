@@ -74,7 +74,7 @@ bool AutoTankState::isBlocked(long currentDistance)
     return false;
 }
 
-void AutoTankState::onKeyPress()
+void AutoTankState::onKeyPress(uint16_t keyCode)
 {
     
 }

@@ -14,7 +14,7 @@ ParkingTankState::ParkingTankState(Tank * tank) : TankState(tank)
 {
     
 }
- void ParkingTankState::onKeyPress()
+ void ParkingTankState::onKeyPress(uint16_t keyCode)
 {
     
 }

@@ -1,22 +1,27 @@
 #include "Tank.h"
 #include "ParkingTankState.h"
 
-Tank::Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort) :
-_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED)
+Tank::Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort, uint8_t irReceiverPOrt) :
+_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED), _irReceiver(new MeInfraredReceiver(irReceiverPOrt))
 {
     setCurrentState(new ParkingTankState(this));// we do that here because this is not initialized in the initilization part
+    
+    _irReceiver->begin();
 }
+
  Tank::~Tank ()
 {
     delete _rightMotor;
     delete _leftMotor;
     delete _ultraSonicSensor;
+    delete _irReceiver;
 }
 
  TankState * Tank::getCurrentState() const
 {
     return _currentState;
 }
+
  void Tank::setCurrentState(TankState * state)
 {
     if(state == NULL)
@@ -27,6 +32,12 @@ _rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotor
 
  void Tank::onLoop()
 {
+    if (_currentState == NULL)
+        return;
+    
+    if(_irReceiver->available())
+        _currentState->onKeyPress(_irReceiver->read());
+        
     _currentState->onLoop();
     
 }

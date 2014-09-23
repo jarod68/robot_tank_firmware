@@ -20,7 +20,7 @@ public:
     
 public:
     virtual void onLoop();
-    virtual void onKeyPress();
+    virtual void onKeyPress(uint16_t keyCode);
     
     virtual void setMaxSpeed(uint16_t max);
     virtual void setMinSpeed(uint16_t min);

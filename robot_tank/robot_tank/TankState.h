@@ -16,7 +16,7 @@ public:
     virtual ~TankState();
     
     virtual void onLoop() = 0;
-    virtual void onKeyPress() = 0;
+    virtual void onKeyPress(uint16_t keyCode) = 0;
     
 protected:
     Tank * getTank() const;

@@ -14,7 +14,7 @@ public:
     
 public:
     virtual void onLoop();
-    virtual void onKeyPress();
+    virtual void onKeyPress(uint16_t keyCode);
     
 
 };

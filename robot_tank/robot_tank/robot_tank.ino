@@ -25,19 +25,17 @@
 #include "AutoTankState.h";
 
 
-Tank tank (M1, M2, PORT_3);
+Tank tank (M1, M2, PORT_3, PORT_4);
 AutoTankState autoTankState(&tank);
+
 
 void setup() {
   
     randomSeed(analogRead(PORT0));
     Serial.begin(9600);
-
     tank.setCurrentState(&autoTankState);
 }
 
 void loop() {
     tank.onLoop();
-    
-
 }
