@@ -2,7 +2,7 @@
 #include "ParkingTankState.h"
 
 Tank::Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort, uint8_t irReceiverPOrt) :
-_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED), _irReceiver(new MeInfraredReceiver(irReceiverPOrt))
+_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED), _irReceiver(new MeInfraredReceiver(irReceiverPOrt)), _currentMove(Stop)
 {
     setCurrentState(new ParkingTankState(this));// we do that here because this is not initialized in the initilization part
     
@@ -47,10 +47,11 @@ _rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotor
     this->setLineSpeed(speed);
     this->forward();
 }
- void Tank::forward() const
+ void Tank::forward()
 {
     _leftMotor->run(+_lineSpeed);
     _rightMotor->run(+_lineSpeed);
+    _currentMove = Forward;
 }
 
  void Tank::backward(uint8_t speed)
@@ -58,27 +59,31 @@ _rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotor
     this->setLineSpeed(speed);
     this->backward();
 }
- void Tank::backward() const
+ void Tank::backward()
 {
     _leftMotor->run(- _lineSpeed);
     _rightMotor->run(- _lineSpeed);
+    _currentMove = Backward;
 }
 
- void Tank::left() const
+ void Tank::left()
 {
     _leftMotor->run(- _turnSpeed);
     _rightMotor->run(+_turnSpeed);
+    _currentMove = Left;
 }
- void Tank::right() const
+ void Tank::right()
 {
     _leftMotor->run(+_turnSpeed);
     _rightMotor->run(-_turnSpeed);
+    _currentMove = Right;
 }
 
-void Tank::stop() const
+void Tank::stop()
 {
     _leftMotor->stop();
     _rightMotor->stop();
+    _currentMove = Stop;
 }
 
  void Tank::setTurnSpeed(uint8_t turnSpeed)
@@ -102,4 +107,8 @@ void Tank::stop() const
 long Tank::distanceCm()const
 {
     return _ultraSonicSensor->distanceCm();
+}
+
+TankMove Tank::getCurrentMove() const{
+    return _currentMove;
 }

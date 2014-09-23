@@ -14,6 +14,14 @@
 
 class TankState;
 
+enum TankMove {
+    Forward,
+    Backward,
+    Left,
+    Right,
+    Stop
+};
+
 class Tank
 {
     
@@ -28,21 +36,23 @@ public:
     virtual void onLoop();
     
     virtual void forward(uint8_t speed);
-    virtual void forward() const;
+    virtual void forward() ;
 
     virtual void backward(uint8_t speed);
-    virtual void backward() const;
+    virtual void backward() ;
 
-    virtual void left() const;
-    virtual void right() const;
+    virtual void left() ;
+    virtual void right() ;
     
-    virtual void stop() const;
+    virtual void stop() ;
 
     virtual void setTurnSpeed(uint8_t turnSpeed);
     virtual void setLineSpeed(uint8_t lineSpeed);
     
     virtual uint8_t getTurnSpeed() const;
     virtual uint8_t getLineSpeed() const;
+    
+    virtual TankMove getCurrentMove() const;
     
     virtual long distanceCm()const;
     
@@ -54,6 +64,7 @@ private:
     TankState * _currentState;
     uint8_t _turnSpeed;
     uint8_t _lineSpeed;
+    TankMove _currentMove;
 
 };
 
