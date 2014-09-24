@@ -18,8 +18,6 @@ void ManualTankState::onLoop()
     if(tank == NULL)
         return;
 
-    buzzerOff();
-
 }
 
 void ManualTankState::onKeyPress(uint16_t keyCode)

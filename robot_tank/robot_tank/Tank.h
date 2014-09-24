@@ -28,6 +28,13 @@ enum TankMode {
     Manual
 };
 
+enum BuzzerMode {
+    None,
+    Alarm,
+    Continue
+    
+};
+
 class Tank
 {
     
@@ -64,6 +71,9 @@ public:
     
     virtual long distanceCm()const;
     
+    virtual BuzzerMode getBuzzerMode()const;
+    virtual void setBuzzerMode(BuzzerMode mode);
+    
 protected:
     virtual TankState * getCurrentState() const;
     virtual void setCurrentState(TankState * state);
@@ -81,6 +91,7 @@ private:
     uint8_t _lineSpeed;
     TankMove _currentMove;
     TankMode _currentMode;
+    BuzzerMode _buzzerMode;
 };
 
 

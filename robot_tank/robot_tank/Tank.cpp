@@ -4,7 +4,7 @@
 #include "AutoTankState.h"
 
 Tank::Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort, uint8_t irReceiverPOrt) :
-_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _parkingState(NULL), _autoState(NULL), _manualState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED), _irReceiver(new MeInfraredReceiver(irReceiverPOrt)), _currentMove(Stop)
+_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _parkingState(NULL), _autoState(NULL), _manualState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED), _irReceiver(new MeInfraredReceiver(irReceiverPOrt)), _currentMove(Stop), _buzzerMode(None)
 {
     //setCurrentState(new ParkingTankState(this));// we do that here because this is not initialized in the initilization part
     
@@ -130,6 +130,7 @@ TankMove Tank::getCurrentMove() const{
 {
     _currentMode = mode;
     stop();
+    setBuzzerMode(None);
     switch (mode) {
         case Auto: setCurrentState(_autoState); break;
         case Manual:setCurrentState(_manualState);break;
@@ -139,3 +140,20 @@ TankMove Tank::getCurrentMove() const{
     }
     
 }
+
+ BuzzerMode Tank::getBuzzerMode()const
+{
+    return _buzzerMode;
+}
+ void Tank::setBuzzerMode(BuzzerMode mode)
+{
+    _buzzerMode = mode;
+    
+    switch (mode) {
+        case None: buzzerOff(); break;
+        case Continue: buzzerOff(); break;
+        default:break;
+    }
+    
+}
+

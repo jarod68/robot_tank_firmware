@@ -21,7 +21,7 @@ void AutoTankState::onLoop()
     
     if(distance <= _securityDistance){
         
-        buzzerOn();
+        tank->setBuzzerMode(Continue);
         if(isBlocked(distance)){
             _turnsCount = 0; //reset the counter
             tank->backward(_minSpeed);
@@ -39,7 +39,8 @@ void AutoTankState::onLoop()
         
     }
     else{
-        buzzerOff();
+        tank->setBuzzerMode(None);
+        
         if(distance > _securityDistance * 2)
             tank->forward(_maxSpeed);
         else
