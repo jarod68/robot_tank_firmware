@@ -17,8 +17,6 @@ void AutoTankState::onLoop()
     if(tank == NULL)
         return;
     
-   
-    
     long distance = tank->distanceCm();
     
     if(distance <= _securityDistance){
