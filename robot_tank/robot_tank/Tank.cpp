@@ -47,6 +47,7 @@ void Tank::onLoop()
         
     _currentState->onLoop();
     
+    delayMicroseconds(1);
 }
 
  void Tank::forward(uint8_t speed)
