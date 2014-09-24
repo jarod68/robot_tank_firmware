@@ -1,10 +1,11 @@
 #include "ManualTankState.h"
 
 
-ManualTankState::ManualTankState(Tank * tank) : TankState(tank)
+ManualTankState::ManualTankState(Tank * tank) : TankState(tank), _baseSpeed(DEFAULT_BASE_SPEED)
 {
     
 }
+
 ManualTankState::~ManualTankState()
 {
     
@@ -16,9 +17,10 @@ void ManualTankState::onLoop()
     
     if(tank == NULL)
         return;
-    
-}
 
+    buzzerOff();
+
+}
 
 void ManualTankState::onKeyPress(uint16_t keyCode)
 {
@@ -36,8 +38,8 @@ void ManualTankState::onKeyPress(uint16_t keyCode)
         case IR_BUTTON_E: break;
         case IR_BUTTON_F: break;
         case IR_BUTTON_SETTING: tank->stop(); break;
-        case IR_BUTTON_UP: tank->forward(); break;
-        case IR_BUTTON_DOWN: tank->backward(); break;
+        case IR_BUTTON_UP: tank->getCurrentMove() == Forward ? tank->forward(_baseSpeed * 2): tank->forward(_baseSpeed);  break;
+        case IR_BUTTON_DOWN: tank->getCurrentMove() == Backward ? tank->backward(_baseSpeed * 2) : tank->backward(_baseSpeed);  break;
         case IR_BUTTON_LEFT: tank->left(); break;
         case IR_BUTTON_RIGHT: tank->right(); break;
         case IR_BUTTON_0: break;
