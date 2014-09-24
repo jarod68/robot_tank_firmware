@@ -661,7 +661,7 @@ endif
 #
 info:
 		@if [ -f $(CURRENT_DIR)/About/About.txt ]; then $(CAT) $(CURRENT_DIR)/About/About.txt; fi;
-		@if [ -f $(UTILITIES_PATH)/embedXcode_check ]; then $(UTILITIES_PATH)/embedXcode_check; fi
+#@if [ -f $(UTILITIES_PATH)/embedXcode_check ]; then $(UTILITIES_PATH)/embedXcode_check; fi
 		@echo $(STARTCHRONO)
 		$(call TRACE,"0-START",)
 
