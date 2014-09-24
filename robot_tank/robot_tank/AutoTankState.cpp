@@ -23,7 +23,7 @@ void AutoTankState::onLoop()
     
     if(distance <= _securityDistance){
         
-        
+        buzzerOn();
         if(isBlocked(distance)){
             _turnsCount = 0; //reset the counter
             tank->backward(_minSpeed);
@@ -41,7 +41,7 @@ void AutoTankState::onLoop()
         
     }
     else{
-        
+        buzzerOff();
         if(distance > _securityDistance * 2)
             tank->forward(_maxSpeed);
         else
@@ -84,6 +84,7 @@ void AutoTankState::onKeyPress(uint16_t keyCode)
     switch(keyCode)
     {
         case IR_BUTTON_B: tank->setMode(Manual); break;
+        case IR_BUTTON_C: tank->setMode(Parking); break;
         default:break;
     }
 }

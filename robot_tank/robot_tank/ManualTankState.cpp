@@ -31,7 +31,7 @@ void ManualTankState::onKeyPress(uint16_t keyCode)
     {
         case IR_BUTTON_A: tank->setMode(Auto); break;
         case IR_BUTTON_B: break;
-        case IR_BUTTON_C: break;
+        case IR_BUTTON_C: tank->setMode(Parking); break;
         case IR_BUTTON_D: break;
         case IR_BUTTON_E: break;
         case IR_BUTTON_F: break;
