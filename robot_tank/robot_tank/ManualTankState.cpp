@@ -29,7 +29,7 @@ void ManualTankState::onKeyPress(uint16_t keyCode)
 
     switch(keyCode)
     {
-        case IR_BUTTON_A: break;
+        case IR_BUTTON_A: tank->setMode(Auto); break;
         case IR_BUTTON_B: break;
         case IR_BUTTON_C: break;
         case IR_BUTTON_D: break;

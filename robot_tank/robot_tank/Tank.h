@@ -22,6 +22,12 @@ enum TankMove {
     Stop
 };
 
+enum TankMode {
+    Auto,
+    Parking,
+    Manual
+};
+
 class Tank
 {
     
@@ -30,8 +36,7 @@ public:
     Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort, uint8_t irReceiverPOrt);
     virtual ~Tank ();
     
-    virtual TankState * getCurrentState() const;
-    virtual void setCurrentState(TankState * state);
+   
     
     virtual void onLoop();
     
@@ -53,8 +58,15 @@ public:
     virtual uint8_t getLineSpeed() const;
     
     virtual TankMove getCurrentMove() const;
+    virtual TankMode getCurrentMode() const;
+    
+    virtual void setMode(TankMode mode);
     
     virtual long distanceCm()const;
+    
+protected:
+    virtual TankState * getCurrentState() const;
+    virtual void setCurrentState(TankState * state);
     
 private:
     MeDCMotor * _rightMotor;
@@ -62,10 +74,13 @@ private:
     MeUltrasonicSensor * _ultraSonicSensor;
     MeInfraredReceiver * _irReceiver;
     TankState * _currentState;
+    TankState * _parkingState;
+    TankState * _autoState;
+    TankState * _manualState;
     uint8_t _turnSpeed;
     uint8_t _lineSpeed;
     TankMove _currentMove;
-
+    TankMode _currentMode;
 };
 
 

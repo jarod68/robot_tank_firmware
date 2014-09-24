@@ -76,7 +76,16 @@ bool AutoTankState::isBlocked(long currentDistance)
 
 void AutoTankState::onKeyPress(uint16_t keyCode)
 {
+    Tank * tank =  getTank();
     
+    if(tank == NULL)
+        return;
+    
+    switch(keyCode)
+    {
+        case IR_BUTTON_B: tank->setMode(Manual); break;
+        default:break;
+    }
 }
 
 void AutoTankState::setMaxSpeed(uint16_t max)

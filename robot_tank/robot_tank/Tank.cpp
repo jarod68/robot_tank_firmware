@@ -1,11 +1,18 @@
 #include "Tank.h"
 #include "ParkingTankState.h"
+#include "ManualTankState.h"
+#include "AutoTankState.h"
 
 Tank::Tank (uint8_t rightMotorPort, uint8_t leftMotorPort, uint8_t ultraSonicSensorPort, uint8_t irReceiverPOrt) :
-_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED), _irReceiver(new MeInfraredReceiver(irReceiverPOrt)), _currentMove(Stop)
+_rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotorPort)), _ultraSonicSensor(new MeUltrasonicSensor(ultraSonicSensorPort)), _currentState(NULL), _parkingState(NULL), _autoState(NULL), _manualState(NULL), _turnSpeed(DEFAULT_TURN_SPEED), _lineSpeed(DEFAULT_LINE_SPEED), _irReceiver(new MeInfraredReceiver(irReceiverPOrt)), _currentMove(Stop)
 {
-    setCurrentState(new ParkingTankState(this));// we do that here because this is not initialized in the initilization part
+    //setCurrentState(new ParkingTankState(this));// we do that here because this is not initialized in the initilization part
     
+    _parkingState   = new ParkingTankState  (this);
+    _manualState    = new ManualTankState   (this);
+    _autoState      = new AutoTankState     (this);
+    
+    setMode(Parking);
     _irReceiver->begin();
 }
 
@@ -17,12 +24,12 @@ _rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotor
     delete _irReceiver;
 }
 
- TankState * Tank::getCurrentState() const
+TankState * Tank::getCurrentState() const
 {
     return _currentState;
 }
 
- void Tank::setCurrentState(TankState * state)
+void Tank::setCurrentState(TankState * state)
 {
     if(state == NULL)
         return;
@@ -30,7 +37,7 @@ _rightMotor(new MeDCMotor (rightMotorPort)), _leftMotor(new MeDCMotor (leftMotor
     _currentState = state;
 }
 
- void Tank::onLoop()
+void Tank::onLoop()
 {
     if (_currentState == NULL)
         return;
@@ -111,4 +118,23 @@ long Tank::distanceCm()const
 
 TankMove Tank::getCurrentMove() const{
     return _currentMove;
+}
+
+ TankMode Tank::getCurrentMode() const
+{
+    return _currentMode;
+}
+
+ void Tank::setMode(TankMode mode)
+{
+    _currentMode = mode;
+    stop();
+    switch (mode) {
+        case Auto: setCurrentState(_autoState); break;
+        case Manual:setCurrentState(_manualState);break;
+        case Parking:setCurrentState(_parkingState);break;
+            
+        default:break;
+    }
+    
 }
